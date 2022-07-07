@@ -9,7 +9,7 @@ resource "aws_lambda_function" "get_thumbnail" {
   layers           = [data.aws_lambda_layer_version.layer.arn]
   architectures    = ["x86_64"]
   timeout          = "120"
-  memory_size      = "256"
+  memory_size      = "1024"
 
   environment {
     variables = {
