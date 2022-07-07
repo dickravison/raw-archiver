@@ -2,10 +2,16 @@
 resource "aws_dynamodb_table" "index" {
   name         = "${var.project_name}-index"
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "filename"
+  hash_key     = "PK"
+  range_key    = "SK"
 
   attribute {
-    name = "filename"
+    name = "PK"
+    type = "S"
+  }
+
+  attribute {
+    name = "SK"
     type = "S"
   }
 

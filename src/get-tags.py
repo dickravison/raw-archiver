@@ -17,13 +17,14 @@ def lambda_handler(event, context):
     for x in response['Labels']:
         conf = int(x['Confidence'])
         if conf > 80:
-            print(x['Name'])
             tags.append(x['Name'])
 
     return {
         'statusCode': 200,
         'tags': json.dumps(tags),
         'exif': event['exif'],
+        'pk': event['pk'],
+        'sk': event['sk'],
         'newFilename': event['newFilename'],
         'newBucket': event['newBucket'],
         'newThumbnail': event['newThumbnail'],

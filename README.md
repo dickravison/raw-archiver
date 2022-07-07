@@ -8,7 +8,7 @@ This project takes Nikon RAW .NEF files from an upload bucket and:
 - Stores the uploaded RAW image in Glacier Instant Retrieval
 
 ## To Do
+- Add checkov github action
 - Finish README
-- Speed up Lambda functions
 - Refactor IaC
 - Refactor Python code

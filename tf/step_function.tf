@@ -65,6 +65,12 @@ resource "aws_sfn_state_machine" "state_machine" {
               "Parameters": {
                 "TableName": "${aws_dynamodb_table.index.id}",
                 "Item": {
+                  "PK": {
+                    "S.$": "$.pk"
+                  },
+                  "SK": {
+                    "S.$": "$.sk"
+                  },
                   "filename": {
                     "S.$": "$.newFilename"
                   },

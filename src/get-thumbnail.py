@@ -5,6 +5,7 @@ import rawpy
 import imageio
 import os
 from PIL import Image, TiffImagePlugin, ExifTags
+from datetime import datetime, timedelta
 
 def lambda_handler(event, context):
 
@@ -48,6 +49,11 @@ def lambda_handler(event, context):
             v = v.decode(errors="replace")
          exif[ExifTags.TAGS[k]] = v
 
+   #Generate sort key (date picture was taken + uuid)
+   date=exif['DateTime']
+   convertdate = datetime.strptime(date,"%Y:%m:%d %H:%M:%S")
+   sortkey = datetime.strftime(convertdate,"%Y#%m#%d#%H#%M#%S#")
+
    return {
         'statusCode': 200,
         'newFilename': filename + '.NEF',
@@ -55,5 +61,7 @@ def lambda_handler(event, context):
         'newThumbnail': 'thumbnails/' + filename + '.jpeg',
         'originalFilename': event['detail']['object']['key'],
         'exif': json.dumps(exif),
+        'pk': 'IMAGE#NEF',
+        'sk': sortkey + filename,
         'originalBucket': event['detail']['bucket']['name']
    }
